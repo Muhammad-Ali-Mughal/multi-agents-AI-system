@@ -1,0 +1,18 @@
+# Langchain Dependencies
+langchain==1.4.2
+langchain-core==1.6.5
+langchain-groq==1.1.3
+langchain-community==0.4.2
+langgraph==1.2.12
+
+# Web Scraping Dependencies
+beautifulsoup4>=4.12.0
+readability-lxml
+trafilatura
+requests>=2.31.0
+lxml>=5.0.0
+
+# Other Dependencies
+ddgs==9.16.0
+requests==2.34.2
+python-dotenv==1.2.3
