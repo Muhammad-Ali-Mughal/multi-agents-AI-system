@@ -1,3 +1,4 @@
+import os
 from langchain.agents import create_agent
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
