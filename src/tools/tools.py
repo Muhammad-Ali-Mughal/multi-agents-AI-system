@@ -1,8 +1,10 @@
 import os
+from ddgs.exceptions import DDGSException
 from dotenv import load_dotenv
 
 from langchain_community.tools import DuckDuckGoSearchRun
 from langchain.tools import tool
+from langchain_community.utilities import DuckDuckGoSearchAPIWrapper
 import requests
 
 from playwright.sync_api import sync_playwright
@@ -13,11 +15,31 @@ import re
 
 load_dotenv()
 
-web_search_tool = DuckDuckGoSearchRun()
+# Explicitly configure the search engine
+search_wrapper = DuckDuckGoSearchAPIWrapper(
+    region="us-en",
+    backend="duckduckgo",
+    max_results=5
+)
 
-result = web_search_tool.invoke("What is the capital of France?")
+web_search_tool = DuckDuckGoSearchRun(
+    api_wrapper=search_wrapper
+)
 
+@tool
+def web_search(query: str) -> str:
+    """Search the web for recent and reliable information."""
+    try:
+        results = web_search_tool.invoke(query)
+        return results or "SEARCH_ERROR: No results found."
+
+    except DDGSException as error:
+        print(f"DDGS search error: {error}")
+        return "SEARCH_ERROR: Search provider unavailable."
+
+@tool
 def scrape_url(url: str) -> dict:
+    """Scrape the content of a given URL."""
     # Open website in a browser
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)

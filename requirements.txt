@@ -17,3 +17,4 @@ playwright
 ddgs==9.16.0
 requests==2.34.2
 python-dotenv==1.2.3
+streamlit

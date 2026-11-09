@@ -1,8 +1,6 @@
-from src.tools.tools import web_search_tool, scrape_url
+from src.pipelines.pipelines import run_research_pipeline
 
-# result = web_search_tool.invoke("What is the capital of France?")
+topic = "The impact of artificial intelligence on modern healthcare"
 
-result = scrape_url("https://news.google.com/topics/CAAqIAgKIhpDQkFTRFFvSEwyMHZNRzFyZWhJQ1pXNG9BQVAB?hl=en-US&gl=US&ceid=US%3Aen")
-
-def main():
-    print(result)
+if __name__ == "__main__":
+    run_research_pipeline(topic)
